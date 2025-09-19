@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- PANTALLA DE CARGA -->
+    <div class="loader" id="loader">
+        <h1>LOADING</h1>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+
+    <!-- PANTALLAS PRINCIPALES -->
+    <div id="main" class="main" style="display:none;">
+        <div class="main-content">
+            <h3>Tic Tac Toe</h3>
+            <button class="btn btn-cpu">JUGADOR VS CPU</button>
+            <button class="btn btn-vs">JUGADOR VS JUGADOR</button>
+        </div>
+    </div>
+
+    <div class="main" id="pantalla-cpu" style="display: none;">
+        <div class="cpu-content">
+            <h2>NOMBRAR JUGADOR</h2>
+            <input type="text" placeholder="Nombrar Jugador" id="nombreJugador" required />
+            <button class="btn btn-vs" id="btn-iniciar-cpu">INICIAR</button>
+        </div>
+    </div>
+
+    <div class="main" id="pantalla-jugadores" style="display:none;">
+        <div class="jugadores-content">
+            <h2>NOMBRAR JUGADORES</h2>
+            <input type="text" placeholder="Jugador 1" id="jugador1" required />
+            <input type="text" placeholder="Jugador 2" id="jugador2" required />
+            <button class="btn btn-vs" id="btn-iniciar-jugadores">INICIAR</button>
+        </div>
+    </div>
+
+    <!-- PANTALLA DE JUEGO -->
+    <div class="main" id="pantalla-tablero" style="display: none;">
+        <div class="tablero-layout">
+            <div class="tablero-header">
+                <button id="btn-back" class="icon-btn orange">
+                    <img src="assets/images/ionic-md-arrow-back.svg" alt="Volver">
+                </button>
+                
+                <div class="jugadores-nombres">
+                    <div class="jugador">
+                        <span id="nombre-j1" class="nombre">Jugador 1</span>
+                        <div class="avatar avatar-x" id="avatar-j1">
+                            J1
+                            <div class="avatar-badge">
+                                <img src="assets/images/ionic-ios-close.svg" alt="X" class="badge-icon">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <span class="vs">VS</span>
+                    
+                    <div class="jugador">
+                        <span id="nombre-j2" class="nombre">CPU</span>
+                        <div class="avatar avatar-o" id="avatar-j2">
+                            CPU
+                            <div class="avatar-badge">
+                                <img src="assets/images/icon-ellipse.svg" alt="O" class="badge-icon">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="btn-restart" class="icon-btn blue">
+                    <img src="assets/images/ionic-md-refresh.svg" alt="Reiniciar">
+                </button>
+            </div>
+
+            <div class="tablero-box">
+                <div class="tablero-sup">
+                    <div class="tablero-contador">
+                        <div>
+                            <span id="label-j1" class="label">AA</span>
+                            <div class="contador-texto">
+                                <span id="ganadas-j1" class="contador-texto">0</span> GANADAS
+                            </div>
+                        </div>
+
+                        <div>
+                            <span id="label-j2" class="label">CPU</span>
+                            <div class="contador-texto">
+                                <span id="ganadas-j2" class="contador-texto">0</span> GANADAS
+                            </div>
+                        </div>
+
+                        <div class="contador-empates">
+                            <span class="label">
+                                <img src="assets/images/icon-map-lawyer.svg" alt="Empates">
+                            </span>
+                            <div class="contador-texto">
+                                <span id="empates" class="contador-texto">0</span> EMPATES
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tablero-grid" id="tablero-grid">
+                        <button class="celda" data-index="0"></button>
+                        <button class="celda" data-index="1"></button>
+                        <button class="celda" data-index="2"></button>
+                        <button class="celda" data-index="3"></button>
+                        <button class="celda" data-index="4"></button>
+                        <button class="celda" data-index="5"></button>
+                        <button class="celda" data-index="6"></button>
+                        <button class="celda" data-index="7"></button>
+                        <button class="celda" data-index="8"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ALERTAS -->
+    <div class="alerta-victoria" id="alerta-victoria">
+        <div class="alerta-contenido">
+            <div class="trofeo-img">
+                <img src="assets/images/trofeo.svg" alt="Ganador">
+            </div>
+            <h2 class="alerta-titulo" id="alerta-titulo">VICTORIA</h2>
+            <p class="alerta-ganador" id="alerta-ganador">JUGADOR</p>
+
+            <div class="contadores-alerta">
+                <div class="contador-alerta">
+                    <span id="alerta-label-j1" class="label">J1</span>
+                    <div class="contador-texto">
+                        <span id="alerta-ganadas-j1" class="contador-texto">0</span> GANADAS
+                    </div>
+                </div>
+
+                <div class="contador-alerta">
+                    <span id="alerta-label-j2" class="label">CPU</span>
+                    <div class="contador-texto">
+                        <span id="alerta-ganadas-j2" class="contador-texto">0</span> GANADAS
+                    </div>
+                </div>
+
+                <div class="contador-alerta contador-empates-alerta">
+                    <span class="label">
+                        <img src="assets/images/icon-map-lawyer.svg" alt="Empates">
+                    </span>
+                    <div class="contador-texto">
+                        <span id="alerta-empates" class="contador-texto">0</span> EMPATES
+                    </div>
+                </div>
+            </div>
+
+            <div class="botones-alerta">
+                <button class="btn-alerta btn-salir" id="btn-alerta-salir">SALIR</button>
+                <button class="btn-alerta btn-proximo" id="btn-alerta-proximo">PRÓXIMO ROUND</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alerta-derrota" id="alerta-derrota">
+        <div class="alerta-contenido">
+            <div class="trofeo-img">
+                <img src="assets/images/derrota.svg" alt="Derrota">
+            </div>
+            <h2 class="alerta-titulo">PERDISTE</h2>
+            <p class="alerta-ganador" id="alerta-perdedor">JUGADOR</p>
+            
+            <div class="contadores-alerta">
+                <div class="contador-alerta">
+                    <span id="derrota-label-j1" class="label">J1</span>
+                    <div class="contador-texto">
+                        <span id="derrota-ganadas-j1" class="contador-texto">0</span> GANADAS
+                    </div>
+                </div>
+
+                <div class="contador-alerta">
+                    <span id="derrota-label-j2" class="label">CPU</span>
+                    <div class="contador-texto">
+                        <span id="derrota-ganadas-j2" class="contador-texto">0</span> GANADAS
+                    </div>
+                </div>
+
+                <div class="contador-alerta contador-empates-alerta">
+                    <span class="label">
+                        <img src="assets/images/icon-map-lawyer.svg" alt="Empates">
+                    </span>
+                    <div class="contador-texto">
+                        <span id="derrota-empates" class="contador-texto">0</span> EMPATES
+                    </div>
+                </div>
+            </div>
+            
+            <div class="botones-alerta">
+                <button class="btn-alerta btn-salir" id="btn-derrota-salir">SALIR</button>
+                <button class="btn-alerta btn-proximo" id="btn-derrota-proximo">PRÓXIMO ROUND</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="alerta-reinicio" id="alerta-reinicio">
+        <div class="alerta-contenido-reinicio">
+            <h2 class="alerta-titulo-reinicio">¿Seguro que desea<br>reiniciar la partida?</h2>
+            
+            <div class="botones-alerta-reinicio">
+                <button class="btn-alerta-reinicio btn-cancelar-reinicio" id="btn-reinicio-cancelar">CANCELAR</button>
+                <button class="btn-alerta-reinicio btn-confirmar-reinicio" id="btn-reinicio-confirmar">REINICIAR PARTIDA</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTON PROXIMA RONDA -->
+    <button class="btn-proxima-ronda" id="btnProximaRonda">Próxima Ronda</button>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
